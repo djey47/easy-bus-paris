@@ -1,0 +1,35 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+GET     /nearMe.json                            Application.nearMe
+GET     /poisNearMe.json                        Application.poisNearMe
+GET     /poisNearBus.json                       Application.poisNearBus
+GET     /busStations.json                       Application.busStations
+
+# Sunny Discover
+GET     /discover                               Application.discover
+
+# Util: all station names
+GET     /stationNames                           Application.stationNames
+
+# About
+GET     /about                                  Application.about
+
+# Contact
+GET     /contact                                Application.contact
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Batch
+GET     /format                                 Batch.format2
+GET     /formatA                                Batch.format3
+GET     /formatB                                Batch.formatCinemaPoi
+GET     /formatC                                Batch.formatHotspotPoi
+

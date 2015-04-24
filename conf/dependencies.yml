@@ -1,0 +1,10 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> securesocial 0.2.6
+    - org.jongo -> jongo 0.4
+    - org.mongodb -> mongo-java-driver 2.9.1
+    - de.flapdoodle.embed -> de.flapdoodle.embed.mongo 1.28
+    - com.fasterxml.jackson.datatype -> jackson-datatype-joda 2.1.2
+
