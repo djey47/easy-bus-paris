@@ -3,6 +3,7 @@
 lib/
 mongodb-dump/easybusparis/
 out/
+tmp/
 *.iml
 *.pyc
 target
