@@ -1,0 +1,86 @@
+#{extends 'main.html' /}
+#{set title:'A propos de... SunnyBus Paris' /}
+#{set 'moreStyles'}
+#{stylesheet 'edito.css'/}
+#{/set}
+#{set 'moreScripts'}
+    <!-- TODO à remonter dans le main -->
+    <script data-main="public/scripts/about" src="public/scripts/require.js"></script>
+#{/set}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <p class="lead">
+                À l'occasion du concours Moov'In The City, le site SunnyBus Paris est né sur une idée de développeurs de la société so@t.
+            </p>
+            <p>
+                &nbsp;&nbsp;Que vous ayez en main un smartphone, une tablette ou un ordinateur portable, SunnyBus Paris est l'élément incontournable pour découvrir la capitale et s'y frayer un chemin tout en profitant de la lumière du jour (exit les metro et RER !).
+                Que vous preniez le bus, lui préfériez le velib, ou vouliez tout simplement etrenner vos baskets flambants neufs, SunnyBus Paris saura vous indiquer les points de départ les plus adaptés mais aussi les lignes de bus pour vous rendre à un évènement (expo, spectacle...) ou un point d'intérêt (musée, monument...).<br/>
+                Durant le trajet, SunnyBus Paris ne restera pas inactif et aura à coeur d'indiquer d'autres points d'intérêt proches de vous.
+            </p>
+            <p>
+                Pour + d'infos sur le concours Moov'In The City, c'est par <a href="http://moovinthecity.fr/index.php">ici</a> !
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <p class="lead">
+                Remerciements.
+            </p>
+            <p>
+                <ul>
+                    <li><a href="http://fr.bemyapp.com/">BeMyApp</a>, société organisatrice du concours Moov'In The City</li>
+                    <li>En tant que contributeurs à l'OpenData : <a href="http://data.ratp.fr/">RATP</a>, <a href="https://developer.jcdecaux.com">JC Decaux</a>, <a href="http://opendata.paris.fr/opendata/jsp/site/Portal.jsp">Mairie de Paris</a></li>
+                    <li>Pour l'encadrement technologique : <a href="http://www.soat.fr/">so@t</a> et <a href="http://www.cloudbees.com/">Cloudbees</a></li>
+                </ul>
+                Nous tenons également à remercier les personnes ayant testé le site tout au long de sa construction, et de par leurs précieux retours, nous permettent de toujours améliorer l'expérience utilisateur.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p class="lead">
+                Mentions légales.
+            </p>
+            <p>
+                <ul>
+                    <li>
+                        Nos sources de <a href="http://moovinthecity.fr/weekends_concept.php">données</a> :
+                        <ul>
+                            <li>RATP : sous licence <a href="http://opendatacommons.org/licenses/odbl/1.0/">ODbL</a></li>
+                            <li>Velib' : sous licence <a href="https://developer.jcdecaux.com/#/opendata/licence">OPEN-LICENCE</a></li>
+                            <li>Autolib : sous licence <a href="https://developer.jcdecaux.com/#/opendata/licence">OPEN-LICENCE</a></li>
+                            <li>Points d'intérêt: sous licence adaptée d'<a href="http://opendata.paris.fr/opendata/jsp/site/Portal.jsp?page_id=10">ODbL</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Les ressources :
+                        <ul>
+                            <li>Logos lignes de Bus RATP, fournis par <a href="http://www.ratp.fr">RATP</a> </li>
+                            <li>Logos 'Bus', 'Velib', 'Autolib' sous licence <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">Creative Commons</a> </li>
+                            <li>Logos de nos partenaires, fournis par BeMyApp</li>
+                            <li>Glyphicons, partie intégrante de <a href="http://twitter.github.io/bootstrap/base-css.html#icons">Twitter Bootstrap</a></li>
+                            <li>Autres illustrations : (c) tous droits réservés.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="public/img/logosunnybus.png" class="logo">
+            <br>
+            <img src="public/img/partners/logo_mairieparis.png">&nbsp;
+            <img src="public/img/partners/logo_autolib.png" class="logo">
+            <br>
+            <img src="public/img/partners/logo_ratp.png" class="logo">
+            <br>
+            <img src="public/img/partners/logo_jcdecaux.png" class="logo">&nbsp;
+            <img src="public/img/partners/logo_velib.png" class="logo">&nbsp;
+            <br>
+            <img src="public/img/partners/logo_soat.png" class="logo">&nbsp;
+            <img src="public/img/partners/logo_bemyapp.png" class="logo">
+        </div>
+    </div>
+</div>

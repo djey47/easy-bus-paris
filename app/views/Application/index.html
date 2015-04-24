@@ -1,0 +1,232 @@
+#{extends 'main.html' /}
+#{set title:'Accueil - SunnyBus Paris' /}
+#{set 'moreScripts'}
+    <!-- TODO à remonter dans le main -->
+    <script data-main="public/scripts/index" src="public/scripts/require.js"></script>
+#{/set}
+
+<!-- Template : accueil - me localiser -->
+<script type="template/javascript" id="localizeMeTemplate">
+    <div class="row" style="height:50%">
+        <div class="col-md-12 text-center" style="height:100%" >
+            <img src="/public/img/logosunnybus.png" alt="Logo Sunny Bus" class="logo">
+        </div>
+    </div>
+    <div class="row" style="height:50%">
+        <div class="col-md-12 text-center">
+            <button id="tryButton" class="btn btn-lg btn-success"><i class="glyphicon glyphicon-map-marker glyphicon-white"></i>&nbsp;Me localiser</button>
+            <button id="discoverButton" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-asterisk glyphicon-white"></i>&nbsp;Sunny Discover!</button>
+        </div>
+    </div>
+</script>
+
+<!-- Template : panneau filtre + liste POI -->
+<script type="template/javascript" id="poiPaneTemplate">
+    <div id="poiMagicPane">
+        <div data-subview="filterPoi"></div>
+        <div data-subview="poiSubview"></div>
+        <button id="poiPaneCloseButton" href="#" class="close closeBottomPane">&times;</button>
+    </div>
+</script>
+
+<!-- Template : panneau filtre + liste stations -->
+<script type="template/javascript" id="stationPaneTemplate">
+    <div id="stationMagicPane">
+        <div data-subview="filterStation"></div>
+        <div id="stationWrapper">
+            <div data-subview="stationSubview"></div>
+        </div>
+        <button id="stationPaneCloseButton" href="#" class="close closeRightPane">&times;</button>
+    </div>
+</script>
+
+<!-- Template : bulle info ma position -->
+<script type="template/javascript" id="myPositionTemplate">
+    <i class="glyphicon glyphicon-user"></i><strong>&nbsp;Ma position:&nbsp;</strong>
+    <em class="coordinates">{{=it.coordinates}}</em>
+    <br/>
+    {{=it.address}}
+    <hr/>
+    Localisation:&nbsp;
+    <a id="autoLocalize">GPS</a>&nbsp;
+    <a id="placeLocalize">Près de...</a>
+</script>
+
+<!-- Template : barre de filtres pour liste arrets/stations -->
+<script type="template/javascript" id="filter">
+    <div id="stationFilter">
+        <ul class="nav nav-pills">
+            <li  class="active" data-value="BUS"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Bus</a></li>
+            <li  class="active" data-value="VELIB"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Vélib</a></li>
+            <li  class="active" data-value="AUTOLIB"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Autolib</a></li>
+        </ul>
+    </div>
+</script>
+
+<!-- Template : liste de stations -->
+<script type="template/javascript" id="stationsCollectionsTemplate">
+    <div id="stationsCollection">
+        <table class="table table-hover">
+            <tbody></tbody>
+        </table>
+    </div>
+</script>
+
+<!-- Template : barre de filtres pour les POI -->
+<script type="template/javascript" id="filterPOITemplate">
+    <div id="poiFilter">
+        <ul class="nav nav-pills">
+            <li  class="active" data-value="LIEU_TOURNAGE"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Tournages films</a></li>
+            <li  class="active" data-value="HOTSPOT_WIFI"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Hotspots WIFI</a></li>
+        </ul>
+    </div>
+</script>
+
+<!-- Template : liste de POIs -->
+<script type="template/javascript" id="poiCollectionTemplate">
+    <div id="poiCollection">
+        <table class="table table-hover">
+            <tbody></tbody>
+        </table>
+    </div>
+</script>
+
+<!-- Template : 1 station de BUS -->
+<script type="template/javascript" id="busStationTemplate">
+    <td class="oneStation">
+        <img src="@{'/public/img/bus/bus_med.png'}">
+    </td>
+    <td class="logoStationBreaker"></td>
+    <td>
+        <p>
+            <strong>{{=it.name}}</strong>
+            {{~it.filteredLines:line:index}}
+            <br/>
+            &nbsp;&nbsp;<a href="#" name="searchPOI" data-line="{{=line.code}}" ><img src="/public/img/bus/{{=line.code}}genRVB.png" alt="{{=line.code}}" class="logoLigneBus" ></a>
+            <a href="#" name="searchPOI" data-line="{{=line.code}}" >{{=line.name}}</a>
+            {{~}}
+        </p>
+    </td>
+</script>
+
+<!-- Template : 1 station Velib -->
+<script type="template/javascript" id="velibStationTemplate">
+    <td class="oneStation">
+        <img src="@{'/public/img/velib/velib_med.png'}">
+    </td>
+    <td class="logoStationBreaker"></td>
+    <td>
+        <strong>{{=it.name}}</strong>
+    </td>
+</script>
+
+<!-- Template : 1 station Autolib -->
+<script type="template/javascript" id="autolibStationTemplate">
+    <td class="oneStation">
+        <img src="@{'/public/img/autolib/Autolib_med.png'}">
+    </td>
+    <td class="logoStationBreaker"></td>
+    <td>
+        <strong>{{=it.name}}</strong>
+    </td>
+</script>
+
+<!-- Template : bulle info station BUS -->
+<script type="template/javascript" id="spotBus">
+    <i class="glyphicon glyphicon-exclamation-sign glyphicon-black"></i><strong>&nbsp;{{=it.name}} ({{=it.distance}}m)</strong>
+    <br/>
+    <img src="@{'/public/img/bus/bus_tiny.png'}">
+    {{~it.filteredLines:line:index}}
+        <a href="#" name="searchPOI" data-line="{{=line.code}}" >
+            <img src="/public/img/bus/{{=line.code}}genRVB.png"
+                 alt="{{=line.code}}"
+                 class="logoLigneBusPopup"></a>
+    {{~}}
+    <hr/>
+    <a name="startDiscover" href="/discover?latitude={{=it.geo[1]}}&longitude={{=it.geo[0]}}">Sunny Discover!</a>
+</script>
+
+<!-- Template : bulle info station Velib -->
+<script type="template/javascript" id="spotVelib">
+    <i class="glyphicon glyphicon-exclamation-sign glyphicon-black"></i><strong>&nbsp;{{=it.name}} ({{=it.distance}}m)</strong>
+    <br/><img src="@{'/public/img/velib/velib_tiny.png'}">
+    <hr/>
+    <a name="startDiscover" href="/discover?latitude={{=it.geo[1]}}&longitude={{=it.geo[0]}}">Sunny Discover!</a>
+</script>
+
+<!-- Template : bulle info station Autolib -->
+<script type="template/javascript" id="spotAutolib">
+    <i class="glyphicon glyphicon-exclamation-sign glyphicon-black"></i><strong>&nbsp;{{=it.name}} ({{=it.distance}}m)</strong>
+    <br/><img src="@{'/public/img/autolib/Autolib_tiny.png'}">
+    <hr/>
+    <a id="startDiscover" href="/discover?latitude={{=it.geo[1]}}&longitude={{=it.geo[0]}}">Sunny Discover!</a>
+</script>
+
+<!-- Template : bulle info POI -->
+<script type="template/javascript" id="spotPOITemplate">
+    <i class="glyphicon glyphicon-asterisk"></i><strong>&nbsp;{{=it.name}} ({{=it.distance}}m)</strong>
+    <br/>
+    {{=it.description}}
+    <br/>
+    {{=it.fullAddress}}
+</script>
+
+<!-- Template : 1 POI -->
+<script type="template/javascript" id="poiTemplate">
+    <td class="onePoi">
+        <img src="/public/img/poi/marqueursunnybus_poi_{{=it.type}}.png">
+    </td>
+    <td class="logoPoiBreaker"></td>
+    <td>
+        <p><strong>{{=it.name}}</strong></p>
+    </td>
+    <td>
+        <p><em>{{=it.distance}}m</em></p>
+    </td>
+</script>
+
+<!-- Modale pour saisie d'adresse -->
+<div id="addressModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>SunnyBus Paris</h4>
+            </div>
+            <div class="modal-body">
+                <div id="alertPlaceholder"></div>
+                <p>
+                    Afin de vous localiser, indiquez un lieu proche :
+                </p>
+                <p>
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="glyphicon glyphicon-search"></i></span>
+                        <input id="addressSearch" type="text" placeholder="ex: Tour Eiffel, Paris ..." />
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="trySafeButton" class="btn btn-primary btn-success"><i class="glyphicon glyphicon-map-marker glyphicon-white"></i>&nbsp;Me localiser</button>
+            </div>
+        </div>
+  </div>
+</div>
+
+<div class="container" id="pocWelcome">
+    <div id="localizeMe"></div>
+</div>
+
+<div id="stationsResult">
+    <div id="sunnyMap">
+        <!--TODO utile ?-->
+        <!--<span class="label label-info">Chargement de la carte... merci de patienter.</span>-->
+    </div>
+
+    <div class="topButtonBar">
+        <button id="backButton" href="#" class="btn btn-danger topButton"><i class="glyphicon glyphicon-remove-circle glyphicon-white"></i>&nbsp;<span id="lineNumberForButton"/></button>&nbsp;
+        <button id="findMeButton" href="#" class="btn btn-info topButton"><i class="glyphicon glyphicon-screenshot glyphicon-white"></i></button>&nbsp;
+        <button id="paneOpenButton" href="#" class="btn btn-warning topButton"><i class="glyphicon glyphicon-list glyphicon-white"></i></button>&nbsp;
+    </div>
+
+    <div id="magicPanes"></div>
+</div>

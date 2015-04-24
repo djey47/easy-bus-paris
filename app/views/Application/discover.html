@@ -1,0 +1,80 @@
+#{extends 'main.html' /}
+#{set title:'Sunny Discover - SunnyBus Paris' /}
+#{set 'moreStyles'}
+    #{stylesheet 'discover.css'/}
+#{/set}
+#{set 'moreScripts'}
+    <!-- TODO à remonter dans le main -->
+    <script data-main="public/scripts/discover" src="public/scripts/require.js"></script>
+#{/set}
+
+<!-- Template : bulle info POI -->
+<script type="template/javascript" id="spotPOITemplate">
+    <i class="glyphicon glyphicon-asterisk"></i><strong>&nbsp;{{=it.name}} ({{=it.distance}}m)</strong>
+    <br/>
+    {{=it.description}}
+    <br/>
+    {{=it.fullAddress}}
+</script>
+
+<!-- Template : bulle info ma position -->
+<script type="template/javascript" id="myPositionTemplate">
+    <i class="glyphicon glyphicon-user"></i><strong>&nbsp;Ma position:&nbsp;</strong>
+    <em class="coordinates">{{=it.coordinates}}</em>
+    <br/>
+    {{=it.address}}
+</script>
+
+<!-- Template : panneau filtre + liste POI -->
+<script type="template/javascript" id="poiPaneTemplate">
+    <div data-subview="filterPoi"></div>
+    <div data-subview="poiSubview"></div>
+    <button id="poiPaneCloseButton" href="#" class="close closeBottomPane">&times;</button>
+</script>
+
+<!-- Template : barre de filtres pour les POI -->
+<script type="template/javascript" id="filterPOITemplate">
+    <div id="poiFilter">
+        <ul class="nav nav-pills">
+            <li  class="active" data-value="LIEU_TOURNAGE"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Tournages films</a></li>
+            <li  class="active" data-value="HOTSPOT_WIFI"><a href="#"><i class="glyphicon glyphicon-eye-open glyphicon-white"></i>Hotspots WIFI</a></li>
+        </ul>
+    </div>
+</script>
+
+<!-- Template : liste de POIs -->
+<script type="template/javascript" id="poiCollectionTemplate">
+    <div id="poiCollection">
+        <table class="table table-hover">
+            <tbody></tbody>
+        </table>
+    </div>
+</script>
+
+<!-- Template : 1 POI -->
+<script type="template/javascript" id="poiTemplate">
+    <td class="onePoi">
+        <img src="/public/img/poi/marqueursunnybus_poi_{{=it.type}}.png">
+    </td>
+    <td class="logoPoiBreaker"></td>
+    <td>
+        <p><strong>{{=it.name}}</strong></p>
+    </td>
+    <td>
+        <p><em>{{=it.distance}}m</em></p>
+    </td>
+</script>
+
+<div id="discoverResult">
+    <input id="iniLat" type="hidden" value="${latitude}" />
+    <input id="iniLon" type="hidden" value="${longitude}" />
+
+    <div id="sunnyMap"><span class="label label-info">Chargement de la carte... merci de patienter.</span></div>
+
+    <div class="topButtonBar">
+        <button id="findMeButton" href="#" class="btn btn-info topButton"><i class="glyphicon glyphicon-screenshot glyphicon-white"></i></button>&nbsp;
+        <button id="poiPaneOpenButton" href="#" class="btn btn-warning topButton"><i class="glyphicon glyphicon-list glyphicon-white"></i></button>&nbsp;
+    </div>
+
+    <div id="poiMagicPane"></div>
+</div>
