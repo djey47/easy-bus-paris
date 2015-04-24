@@ -1,0 +1,31 @@
+plugins {
+    id 'pl.allegro.tech.build.axion-release' version '1.2.3'
+}
+
+apply plugin: 'java'
+
+
+// configure version
+scmVersion {
+    tag {
+        prefix = 'easybusparis'
+    }
+}
+
+project.group = 'fr.easybusparis'
+// version defined by plugin (if changes or ahead commits: x.y.z-SNAPSHOT)
+project.version = scmVersion.version
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+repositories {
+    maven  {
+        url "http://repo1.maven.org/maven2"
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'org.assertj', name: 'assertj-core-java8', version: '1.0.0m1'
+}
