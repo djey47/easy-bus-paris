@@ -1,0 +1,198 @@
+html {
+    height:100%;
+    overflow:hidden;
+}
+
+body {
+    height:inherit;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+h1 h2 h3 {
+    line-height:10px;
+}
+
+body.custom-background {
+    background-color: #E3F1FC; /* blue */
+}
+
+/* Fix for separator in bubbles */
+div hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.navbar .brand {
+    color: #005EA1;
+}
+
+/* Fixes for navbars */
+.navbar {
+    margin-bottom:0px;
+    z-index:2;  /* Above map and panels */
+}
+
+.logo {
+    height:80%;
+    max-height:80%;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.logoLigneBus {
+    width: 30px;
+}
+
+.logoLigneBusPopup {
+    width: 30px;
+}
+
+/* Modal fixes */
+/*No vertical scroll bar*/
+.modal {
+    overflow-y: hidden;
+}
+
+.close {
+    float:right;
+    position:absolute;
+    right:10px;
+    font-size: 24px;
+}
+.closeRightPane {
+    top:67px;
+}
+.closeBottomPane {
+    top:10px;
+}
+
+.coordinates {
+    color: #B0C4DE; /*LightSteelBlue*/
+}
+
+.topButtonBar {
+    float:right;
+    position:absolute;
+    right: 125px;
+}
+
+.topButton {
+    margin-top: 5px;
+}
+
+.logoPoiBreaker {
+    width: 3px;
+}
+
+.table td {
+    border-color: #08c; /* blue */
+}
+
+ul.nav {
+    margin-bottom: 5px;
+
+}
+
+#stationsResult {
+    display: none;
+    height: 100%;
+    width: 100%;
+    padding-top: 57px;
+    position: absolute;
+    top: 0px;
+    overflow:auto;
+}
+
+#sunnyMap {
+    float: left;
+    height: inherit;
+    width: inherit;
+}
+#sunnyMap img {
+    max-width: none; /* map icons fix */
+}
+#backButton {
+    display:none;
+}
+
+#stationMagicPane {
+    display: none;
+    float: right;
+    height: 100%;
+    padding-top: 57px;
+    z-index: 1; /* Above map */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #E3F1FC; /* blue */
+    opacity: 0.90;
+    overflow: hidden;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+@media screen and (max-width: 720px){
+    #stationMagicPane {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 721px){
+    #stationMagicPane {
+        width: 35%;
+    }
+}
+#stationWrapper {
+    height: inherit;
+    padding-bottom: 45px;
+    overflow: auto;
+}
+
+#poiMagicPane {
+    display: none;
+    width:100%;
+    z-index: 1; /* Above map */
+    position: absolute;
+    bottom: 0px;
+    background-color: #E3F1FC; /* blue */
+    opacity: 0.90;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+    padding-bottom : 45px;
+}
+@media screen and (max-height: 480px){
+    #poiMagicPane {
+        height: 60%;
+    }
+}
+@media screen and (min-height: 481px){
+    #poiMagicPane {
+        height: 40%;
+    }
+}
+
+/* Div encapsulating station list */
+.stationsEmbedder {
+    height: inherit;
+}
+#stationsCollection {
+    height: 100%;
+    overflow: auto;
+}
+
+/* Div encapsulating POI list */
+#poiMagicPane div:nth-child(2) {
+    height: 100%;
+}
+#poiCollection {
+    height: 100%;
+    overflow: auto;
+}
+
+.oneStation {
+}
+
+.logoStationBreaker {
+    width: 3px;
+}
+
+.selected {
+    background-color: #FFFF99 /* light yellow*/
+}
