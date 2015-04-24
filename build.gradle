@@ -4,6 +4,9 @@ plugins {
 
 apply plugin: 'java'
 
+configurations {
+    provided
+}
 
 // configure version
 scmVersion {
@@ -16,8 +19,18 @@ project.group = 'fr.easybusparis'
 // version defined by plugin (if changes or ahead commits: x.y.z-SNAPSHOT)
 project.version = scmVersion.version
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets.main{
+    java.srcDir 'app'
+    compileClasspath += configurations.provided
+    runtimeClasspath += configurations.provided
+}
+
+sourceSets.test{
+    java.srcDir 'test'
+}
 
 repositories {
     maven  {
@@ -26,6 +39,17 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+    compile group: 'org.jongo', name: 'jongo', version: '0.4'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '2.13.1'
+    compile group: 'com.google.guava', name: 'guava', version: '11.0.1'
+    compile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '1.28'
+    compile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.process', version: '1.25'
+
+    // To be changed to match actual play installation
+    compile fileTree(dir: '/opt/apps/play/framework', include: '*.jar')
+    compile fileTree(dir: '/opt/apps/play/framework/lib', include: '*.jar')
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.assertj', name: 'assertj-core-java8', version: '1.0.0m1'
 }

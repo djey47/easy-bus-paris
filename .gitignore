@@ -1,6 +1,8 @@
-.gradle
-.idea
-mongodb-dump/easybusparis
+.gradle/
+.idea/
+lib/
+mongodb-dump/easybusparis/
+out/
 *.iml
 *.pyc
 target
