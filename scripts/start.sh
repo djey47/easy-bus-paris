@@ -1,0 +1,3 @@
+#! /bin/sh
+echo Starting easy-bus-paris...
+play run easy-bus-paris
